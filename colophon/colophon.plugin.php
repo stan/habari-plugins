@@ -24,7 +24,7 @@ class Colophon extends Plugin
 		return array(
 			'name'		=>	'Colophon Plugin',
 			'version'	=>	'0.1',
-			'url'		=>	'http://www.josedasilva.net/downloads/habari/plugins/',
+			'url'		=>	'http://github.com/stan/habari-plugins/tree/master',
 			'author'	=>	'stanislas mazurek',
 			'authorurl'	=>	'http://stanbar.jp',
 			'licence'	=>	'Apache licence 2.0',
