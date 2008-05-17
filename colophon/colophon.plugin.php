@@ -7,14 +7,16 @@
 * Example usage in PHP template:
 *
 * <?php if (Plugins::is_loaded('Colophon')) { ?>
-* 	<h2>Colophon</h2>
-* 	<p><?php echo $colophon; ?></p>
+* 	<h2><?php echo $colophon_title; ?></h2>
+* 	<?php echo $colophon; ?>
 * <?php } ?>
 *
 */
 
 class Colophon extends Plugin
 {
+	const VERSION= '0.2';
+	
 	/**
 	* Required plugin information
 	* @return array The array of information
@@ -23,7 +25,7 @@ class Colophon extends Plugin
 	{
 		return array(
 			'name'		=>	'Colophon Plugin',
-			'version'	=>	'0.1',
+			'version'	=>	self::VERSION,
 			'url'		=>	'http://github.com/stan/habari-plugins/tree/master',
 			'author'	=>	'stanislas mazurek',
 			'authorurl'	=>	'http://stanbar.jp',
@@ -57,6 +59,7 @@ class Colophon extends Plugin
 			switch( $action ) {
 				case _t('Configure'):
 					$ui	=	new FormUI ( strtolower( get_class( $this ) ) );
+					$colophontitle	=	$ui->add('text','colophon_title',_t('Enter your Title:'));
 					$colophontext	=	$ui->add('textarea','colophon_text',_t('Enter your Text:'));
 					$ui->on_success( array( $this, 'updated_config'  ) );
 					$ui->out();
@@ -72,7 +75,8 @@ class Colophon extends Plugin
 	*/
 	function action_add_template_vars( $theme ) 
 	{
-		$theme->colophon = Options::get( 'colophon:colophon_text' );
+		$theme->colophon = Format::autop(Options::get( 'colophon:colophon_text' ));
+		$theme->colophon_title = Options::get( 'colophon:colophon_title' );		
 	}
 
 	/**
